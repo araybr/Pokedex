@@ -1,0 +1,45 @@
+.imagen{
+    width: 400px;
+    height: 400px;
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
+}
+.encabezado{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+
+}
+.encabezado div{
+    background-color: grey;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.encabezado-buscar{
+    display: flex;
+    margin-top: 40px;
+    justify-content: space-around;
+}
+
+.buscador{
+    height: 40px;
+    border: none;
+}
+.buscador-contenedor{
+    border: 1px solid black;
+    width: 245px;
+    border-radius: 5px;
+}
+.buscador-contenedor + input[type="text"]{
+    height: 40px;
+}
+.imagen{
+    width: 50%;
+}
+
+.buscar{
+    height: 40px;
+}
