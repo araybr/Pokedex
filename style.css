@@ -5,6 +5,9 @@
     left: 50%;
     position: absolute;
 }
+.buscar-pagina, .pokedex-pagina, .equipo-pagina{
+    display: none;
+}
 .encabezado{
     display: flex;
     width: 100%;
@@ -17,13 +20,26 @@
     display: flex;
     justify-content: center;
 }
-
 .encabezado-buscar{
     display: flex;
     margin-top: 40px;
     justify-content: space-around;
 }
-
+.pokemon-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+.pokemon-card {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f4f4f4;
+}
+.pokemon-card img {
+    width: 100px;
+}
 .buscador{
     height: 40px;
     border: none;
@@ -39,7 +55,17 @@
 .imagen{
     width: 50%;
 }
-
 .buscar{
     height: 40px;
+}
+.botones{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+#prev::before {
+    content: "⬅️ ";
+}
+#next::after {
+    content: " ➡️";
 }
