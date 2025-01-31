@@ -122,18 +122,35 @@ prevButton.addEventListener("click", () => {
 
 fetchPokemons(currentPage);
 
-
 boton.addEventListener("click", buscar);
 
-async function buscar(){
-    const resul = await fetch("https://pokeapi.co/api/v2/pokemon/" + buscador.value);
-    const data = await resul.json();
-    imagen.style.backgroundImage =`url(${data.sprites.front_default})`;
-    imagen.style.backgroundSize = "cover";
-    imagen.style.backgroundRepeat = "no-repeat";
-    imagen.style.width = "400px";
-    imagen.style.height = "400px";
-    console.log(data);
+async function buscar() {
+    const pokemonNombre = buscador.value.toLowerCase();
+    if (!pokemonNombre) return;
+
+    try {
+        const resul = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNombre}`);
+        if (!resul.ok) throw new Error("Pokémon no encontrado");
+
+        const data = await resul.json();
+
+        const tarjeta = document.createElement("div");
+        tarjeta.classList.add("pokemon-card");
+
+        tarjeta.innerHTML = `
+            <p class="pokemon-id">#${data.id}</p>
+            <img src="${data.sprites.front_default}" alt="${data.name}">
+            <h3>${data.name.toUpperCase()}</h3>
+            <div class="types">
+                ${data.types.map(t => `<span class="pokemon-type" style="background:${typeColors[t.type.name] || "#777"}">${t.type.name}</span>`).join("")}
+            </div>
+            <button class="add-to-team">Añadir al equipo</button>
+        `;
+
+        buscar_pagina.appendChild(tarjeta);
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 encabezado.children[0].addEventListener("click", () => {
