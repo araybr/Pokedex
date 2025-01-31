@@ -37,6 +37,10 @@
     border-radius: 8px;
     background: #f4f4f4;
 }
+.pokemon-card:hover{
+    background: rgb(187, 186, 186);
+    transform: scale(1.05);
+}
 .pokemon-card img {
     width: 100px;
 }
@@ -72,4 +76,73 @@
 img{
     background-color: white;
     border-radius: 50%;
+}
+.types {
+    margin-top: 5px;
+}
+.pokemon-type {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 15px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: capitalize;
+    margin: 3px;
+}
+.add-to-team {
+    display: none;
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffcb05;
+    color: black;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+.add-to-team:hover {
+    background: #2a75bb;
+    color: white;
+}
+#team-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background: #fafafa;
+    text-align: center;
+}
+.team-card {
+    display: inline-block;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background: #f8f8f8;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+.team-card img {
+    width: 80px;
+}
+.remove-from-team {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.remove-from-team:hover {
+    background: darkred;
+}
+.pokemon-card:hover .add-to-team {
+    display: block;
 }

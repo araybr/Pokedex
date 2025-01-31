@@ -9,6 +9,28 @@ const pokemonContainer = document.querySelector("#pokemon-container");
 const prevButton = document.getElementById("prev");
 const nextButton = document.getElementById("next");
 let currentPage = 0;
+let team = []; 
+
+const typeColors = {
+    normal: "#A8A77A",
+    fire: "#EE8130",
+    water: "#6390F0",
+    electric: "#F7D02C",
+    grass: "#7AC74C",
+    ice: "#96D9D6",
+    fighting: "#C22E28",
+    poison: "#A33EA1",
+    ground: "#E2BF65",
+    flying: "#A98FF3",
+    psychic: "#F95587",
+    bug: "#A6B91A",
+    rock: "#B6A136",
+    ghost: "#735797",
+    dragon: "#6F35FC",
+    dark: "#705746",
+    steel: "#B7B7CE",
+    fairy: "#D685AD",
+};
 
 
 const fetchPokemons = async (page) => {
@@ -29,17 +51,61 @@ const showPokemons = async (pokemons) => {
     pokemonContainer.innerHTML = "";
 
     for (const pokemon of pokemons) {
-        console.log(pokemon);
         const response = await fetch(pokemon.url);
         const pokeData = await response.json();
+
+        const typeElements = pokeData.types.map(typeInfo => {
+            const typeName = typeInfo.type.name;
+            return `<span class="pokemon-type" style="background-color: ${typeColors[typeName]};">${typeName}</span>`;
+        }).join(" ");
+
         const pokeCard = document.createElement("div");
         pokeCard.classList.add("pokemon-card");
         pokeCard.innerHTML = `
+            <p class="pokemon-id">#${pokeData.id}</p>
             <img src="${pokeData.sprites.front_default}" alt="${pokemon.name}">
-            <p>${pokemon.name}</p>
+            <p><strong>${pokemon.name}</strong></p>
+            <div class="types">${typeElements}</div>
+            <button class="add-to-team">➕ Añadir</button>
         `;
+        const addButton = pokeCard.querySelector(".add-to-team");
+        pokeCard.addEventListener("mouseenter", () => addButton.style.display = "block");
+        pokeCard.addEventListener("mouseleave", () => addButton.style.display = "none");
+
+        addButton.addEventListener("click", () => addToTeam(pokeData));
+
         pokemonContainer.appendChild(pokeCard);
     }
+};
+
+const addToTeam = (pokemon) => {
+    if (team.length >= 6) {
+        alert("¡Tu equipo ya está completo (máx. 6 Pokémon)!");
+        return;
+    }
+    team.push(pokemon);
+    updateTeamUI();
+};
+
+const updateTeamUI = () => {
+    equipo_pagina.innerHTML = "<h2>Equipo Pokémon</h2>";
+
+    team.forEach(pokemon => {
+        const teamCard = document.createElement("div");
+        teamCard.classList.add("team-card");
+        teamCard.innerHTML = `
+            <p class="pokemon-id">#${pokemon.id}</p>
+            <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+            <p><strong>${pokemon.name}</strong></p>
+            <button class="remove-from-team">❌ Quitar</button>
+        `;
+        teamCard.querySelector(".remove-from-team").addEventListener("click", () => {
+            team = team.filter(poke => poke.id !== pokemon.id);
+            updateTeamUI();
+        });
+
+        equipo_pagina.appendChild(teamCard);
+    });
 };
 
 nextButton.addEventListener("click", () => {
