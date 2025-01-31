@@ -29,9 +29,9 @@ const showPokemons = async (pokemons) => {
     pokemonContainer.innerHTML = "";
 
     for (const pokemon of pokemons) {
+        console.log(pokemon);
         const response = await fetch(pokemon.url);
         const pokeData = await response.json();
-
         const pokeCard = document.createElement("div");
         pokeCard.classList.add("pokemon-card");
         pokeCard.innerHTML = `
